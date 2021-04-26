@@ -2,8 +2,8 @@
 #include<time.h>
 int main()
 {
-	char *wday[]={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-	time_t timep;
+	char *wday[]={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};//指针数组
+	time_t timep;//箱子
 	struct tm *p;
 	time(&timep);
 	p=gmtime(&timep);
