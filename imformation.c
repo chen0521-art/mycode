@@ -66,34 +66,26 @@ struct member *del(struct member *head,int num)
 	struct member *p1,*p2;
 	if(head==NULL)
 	{
-		printf("The list is not exist!\n");
-		goto End;
+		printf("\nThe list is not exist!\n");
+		return NULL;
 	}
 	p1=head;
-	while(p1->num!=num&&p1->next!=NULL)
+	while(num!=p1->num&&p1->next!=NULL)
 	{
 		p2=p1;
 		p1=p1->next;
 	}
-	if(p1->num==num)
+	if(num==p1->num)
 	{
 		if(p1==head)
-		{
 			head=p1->next;
-		}
 		else
-		{
 		 p2->next=p1->next;	
-		}
 		printf("\ndelate No:%d succeed!\n",num);
 		n=n-1;//n作为全局变量，用来记录链表的数据个数 
 	}
 	else
-	{
 		printf("%d not been found!\n",num);	
-	}
-	
-End:
 	return head;
 }
 
@@ -101,6 +93,7 @@ End:
 struct member *add(struct member *head,struct member *Add)
 {
 	struct member *p0,*p1,*p2;
+	Add=(struct member *)malloc(len);
 	printf("\nenter the num you want to add:");
 	scanf("%d",&Add->num);
 	printf("enter math grade：");
@@ -121,7 +114,7 @@ struct member *add(struct member *head,struct member *Add)
 		while((p0->num>p1->num)&&(p1->next!=NULL))
 		{
 			p2=p1;
-			p1=p2->next;
+			p1=p1->next;
 		}
 		if(p0->num<=p1->num)
 		{
@@ -149,11 +142,12 @@ void out(struct member *head)
 	int j=2;
 	//printf("\n\n");
 	p=head;
+	//sleep(1000);
 	system("cls");
 	printf("There are %d records!\n",n);
 	printf("studynumber  Math    Chinese    English");
 	if(head!=NULL)
-	  do
+	  do//这里的数据打印形式不够灵活，还要改 
 	  {
 	  	gotoxy(0,j);
 	  	printf("%d",p->num);
@@ -171,7 +165,7 @@ void out(struct member *head)
 
 
 
-void gotoxy(int x, int y)
+void gotoxy(int x, int y)//获取光标位置进行打印 
 {
     CONSOLE_SCREEN_BUFFER_INFO    csbiInfo;                            
     HANDLE    hConsoleOut;
@@ -183,22 +177,22 @@ void gotoxy(int x, int y)
 }
 
 
-void gettime()
+void gettime()//获取系统时间 
 {
-	char *wday[]={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-	time_t timep;
+	char *wday[]={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};//指针数组 ，周日是每周的开始，不能更改 
+	time_t timep;//“箱子” 
 	struct tm *p;
 	time(&timep);
 	p=gmtime(&timep);
 	printf("\n%d\\%d\\%d\t",(1900+p->tm_year),(1+p->tm_mon),p->tm_mday);
 	printf(wday[p->tm_wday]);
-	printf("\t%d:%d:%d\n",p->tm_hour+8,p->tm_min,p->tm_sec);
+	printf("\t%d:%d:%d\n",p->tm_hour+8,p->tm_min,p->tm_sec);//windows系统下的时间慢8小时 
 	
 }
 
-int main()
+int main()//仅仅数单个数据的删减或增加，还没改善 
 {
-		struct member *pt,*ad,*pT;
+		struct member *pt,*ad,*pT,*Add;
 		int num;
 		pt=creat();
 		out(pt);
@@ -206,8 +200,8 @@ int main()
 		scanf("%d",&num);
 		ad=del(pt,num);
 		out(ad);
-		//pT=del(pt,num);
-		//out(add(pT,ad));
+		pT=add(ad,Add);
+		out(pT);
 		gettime();
 		return 0;
 }
