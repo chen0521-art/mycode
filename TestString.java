@@ -4,6 +4,7 @@ import java.util.Locale;
 
 public class TestString {
     public static void main(String[] args){
+        /*
         String str1="abcde";
         String str5=new String("abcde");
         String str2="How are you!";
@@ -31,8 +32,38 @@ public class TestString {
 
         System.out.println(str2.toLowerCase(Locale.ROOT));//转小写
         System.out.println(str2.toUpperCase(Locale.ROOT));//转大写
-        
-        System.out.println(str3.trim());//去除字符串首尾的空格，但中间的不行
 
+        System.out.println(str3.trim());//去除字符串首尾的空格，但中间的不行
+        */
+
+        /*
+        String 类，为不可变字符序列，只能赋值一次
+        StringBuilder,StringBuffer 可变字符序列，可对内容进行修改，前一个“线程不安全，但效率高”，后一个
+        “线程安全，但效率低”，一般使用前者
+         */
+        StringBuilder sb=new StringBuilder("chen");
+        System.out.println(Integer.toHexString(sb.hashCode()));//打印地址
+        sb.append("guo").append("ying");
+        System.out.println(sb);
+        System.out.println(Integer.toHexString(sb.hashCode()));//地址跟前面一样，没有改变
+        sb.setCharAt(0,'C');//替换字符  索引+替换后的字符
+        System.out.println(sb);
+        /*
+        在字符串后面拼接字符（串）
+        错误方法：
+        String s1="";
+        for(int i=0;i<5000;i++){
+            s1=s1+i;//整个循环下来需要创建10000个对象，这样会使服务器奔溃的
+        }
+
+         */
+        StringBuilder s=new StringBuilder("");
+        for(int i=0;i<5000;i++){
+            s.append(i);//正确的方法
+        }
+        long num=Runtime.getRuntime().freeMemory();//获取系统剩余内存空间
+        long time=System.currentTimeMillis();//获取系统的当前时间  运行前后的时间差那用得上，上同
+        System.out.println(num);
+        System.out.println(time);
     }
 }
