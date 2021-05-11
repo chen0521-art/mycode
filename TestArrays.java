@@ -32,7 +32,7 @@ public class TestArrays {
             System.out.println(a);
         }
     }
-    public static void addElement(int element,int index){
+    public static void addElement(int element,int index){//扩容
         int[] str1={1,2,3,4,5};
         int[] str2=new int[str1.length+10];
         System.arraycopy(str1,0,str2,0,str1.length);
